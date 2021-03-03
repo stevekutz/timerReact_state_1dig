@@ -32,7 +32,7 @@ class Timer extends Component {
      
     state = {
         currentDate: '',
-        secondsCount: 0,
+        secondsCount: 10,
         timeCounter: new Date(),
         showTime: false,
         timerActive: 'false',
@@ -174,6 +174,10 @@ class Timer extends Component {
 
         // console.log("Assign Digits called");
 
+
+
+
+
         // assign sec_Ones
         this.setState({sec_OnesDigit: this.state.secondsCount.toString().slice(-1)})
 
@@ -214,7 +218,26 @@ class Timer extends Component {
         this.setState({sec_TensDigit: 0 });
         this.setState({min_OnesDigit: 0 });
         this.setState({min_TensDigit: 0 });
+    }
 
+    incSec = () => {
+        if (this.state.sec_OnesDigit >= 0 && this.state.sec_OnesDigit < 9){
+            this.setState({sec_OnesDigit: this.state.sec_OnesDigit + 1})
+        
+        } else if (this.state.sec_OnesDigit === 9) {
+            this.setState({sec_TensDigit: this.state.sec_TensDigit + 1})
+            this.setState({sec_OnesDigit: 0})
+        } else if (this.state.sec_TensDigit === 5 && this.state.sec_OnesDigit === 9) {
+            if(this.state.min_OnesDigit === 9) {
+                this.setState({min_TensDigit: this.state.min_TensDigit + 1 })
+                this.setState({ min_OnesDigit: 0 })
+            } else {
+                this.setState({min_OnesDigit: this.state.min_OnesDigit + 1})                
+            }
+            
+            this.setState({sec_OnesDigit: 0})
+            this.setState({sec_TensDigit: 0})
+        }
 
 
     }
@@ -243,7 +266,7 @@ class Timer extends Component {
                     sec_ones = {this.state.sec_OnesDigit.toString()}
                 />
 
-                <button onClick = {this.incMin}> Inc Min </button>
+                <button onClick = {this.incSec}> IncSec </button>
 
                 <p>  Current Date: {new Date().toDateString()}</p>
                 <div>

@@ -6,6 +6,7 @@ import {
     DisplayDigitContainerDiv,
     DisplayColonDiv,
     DisplayDigitText,
+    DisplayDigitControlContainer,
     DisplayDigitControls,
     DigitControlButton,
 
@@ -27,13 +28,17 @@ const TimerDisplay = (props) => {
                     
                     </DisplayDigitContainerDiv>
                 
-                    <DisplayDigitControls>
-                        <DigitControlButton onClick = {props.incMin_handler}> Inc Min </DigitControlButton>
-                        <DigitControlButton> Dec Min </DigitControlButton>
+                    <DisplayDigitControlContainer>
+                        <DisplayDigitControls>
+                            <DigitControlButton onClick = {props.incMin_handler}> Inc Min </DigitControlButton>
+                            <DigitControlButton> Dec Min </DigitControlButton>
+                        </DisplayDigitControls>
+                        <DisplayDigitControls>
+                            <DigitControlButton> Inc Sec </DigitControlButton>
+                            <DigitControlButton> Dec Sec </DigitControlButton>
+                        </DisplayDigitControls>
+                    </DisplayDigitControlContainer>    
 
-                        <DigitControlButton> Inc Sec </DigitControlButton>
-                        <DigitControlButton> Dec Sec </DigitControlButton>
-                    </DisplayDigitControls>
 
                     
 

@@ -16,7 +16,7 @@ const DisplayContainerDiv = styled.div`
 const DisplayDigitContainerDiv = styled.div`
     border: 5px solid purple;
     
-    width: 40%;
+    width: 100px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -36,19 +36,30 @@ const DisplayColonDiv = styled.div`
 
 const DisplayDigitText = styled.div`
     border: 1px solid yellow;
-    width: 12px;
+    width: 20px;
     color: lightgray;
     text-align: center;
     // padding: 1px;
     //margin: 4px;
 
 `
+
+const DisplayDigitControlContainer = styled.div`
+    border: 1px solid green;
+
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin: 2px auto;
+
+`
+
 const DisplayDigitControls = styled.div`
     border: 1px solid blue;
     
-    width: 60%;
+    width: 30%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-around;
     padding: 10px;
     margin: 4px auto;
@@ -57,8 +68,17 @@ const DisplayDigitControls = styled.div`
 
 
 const DigitControlButton = styled.button`
-    border: 1px solid red;
-    background: lightblue;
+    border: 2px solid blue;
+    
+    outline-style: none;
+    width: 60px;    
+    background: lightgrey;
+    margin: 2px auto;
+    padding: 1px;
+    border-radius: 5px;
+
+    :hover {
+    border: 2px solid red;}
 
 `
 
@@ -67,6 +87,7 @@ export {
     DisplayDigitContainerDiv,
     DisplayColonDiv,
     DisplayDigitText,
+    DisplayDigitControlContainer,
     DisplayDigitControls,
     DigitControlButton,
     
