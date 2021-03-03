@@ -55,14 +55,6 @@ const DisplayDigitControls = styled.div`
 
 `
 
-const DisplayDigitControlsSec = styled.div`
-    border: 1px solid blue;
-    
-    display: flex;
-    justify-content: end;
-    width: 8px;
-
-`
 
 const DigitControlButton = styled.button`
     border: 1px solid red;

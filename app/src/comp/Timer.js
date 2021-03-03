@@ -43,11 +43,6 @@ class Timer extends Component {
         min_TensDigit: 0,
         fullTime: false,
 
-        secDigits: '00',
-        minDigits: '00',
-        secTotal: 0,
-        minTotal: 0,
-        minAdjust: false,
 
     }
     // ****************************************************
@@ -178,63 +173,32 @@ class Timer extends Component {
     assignDigits() {
 
         // console.log("Assign Digits called");
-        console.log("secondsCount ==> ", this.state.secondsCount);
 
-        this.setState({secTotal: this.state.secondsCount - (60 * this.state.minTotal)});
-        console.log("minTotal ", this.state.minTotal);
-        console.log("secTotal => ", this.state.secTotal);
+        // assign sec_Ones
+        this.setState({sec_OnesDigit: this.state.secondsCount.toString().slice(-1)})
 
-        if( this.state.secTotal >= 0 && this.state.secTotal <= 9) {
-            this.setState({secDigits: '0' + this.state.secTotal.toString()});
-        
-        } else if (this.state.secTotal > 9 && this.state.secTotal <= 59) {
-            this.setState({secDigits: this.state.secTotal.toString()});
+        // assign_sec_Tens
+        if(this.state.secondsCount % 10 === 0) {
 
-        } 
-        
-        if (this.state.secTotal >= 59) {
-            console.log("MIN");
-            this.setState({secTotal: 0})
-            this.setState({minTotal: this.state.minTotal + 1})
-            
-            if(this.state.minTotal <= 9) {
-                this.setState({minDigits: '0' + this.state.minTotal.toString()})
-            } else if (this.state.minTotal <= 59) {
-                this.setState({minDigits: this.state.minTotal.toString()})
-                this.setState({secTotal: 0})    
-            } else {
-                console.log(" Hour Reached ")
-            }
-        }  
+                if (this.state.sec_TensDigit >= 0 && this.state.sec_TensDigit < 5) {
+                    this.setState({ sec_TensDigit: this.state.sec_TensDigit + 1 })    
+                    // this.setState({sec_TensDigit: this.})
+                
+                } else {
+                    this.setState({ sec_TensDigit: 0 })
 
-        this.setState({minAdjust: false});
-        console.log('minDigits ', this.state.minDigits);
-        
-
-
-        // // assign sec_Ones
-        // this.setState({sec_OnesDigit: this.state.secondsCount.toString().slice(-1)})
-
-        // // assign_sec_Tens
-        // if(this.state.secondsCount % 10 === 0) {
-
-        //         if (this.state.sec_TensDigit >= 0 && this.state.sec_TensDigit < 5) {
-        //             this.setState({ sec_TensDigit: this.state.sec_TensDigit + 1 })    
-        //             // this.setState({sec_TensDigit: this.})
-        //         } else {
-        //             this.setState({ sec_TensDigit: 0 })
-                    
-        //             if(this.state.min_OnesDigit >= 0 && this.state.min_OnesDigit < 9) {    
-        //                 this.setState({ min_OnesDigit: this.state.min_OnesDigit + 1 })
-        //             } else if (this.state.min_TensDigit < 5) {
-        //                 this.setState({ min_OnesDigit: 0})
-        //                 this.setState({ min_TensDigit: this.state.min_TensDigit + 1 })
-        //             } else if (this.state.min_TensDigit >= 5) {
-        //                 console.log(" over an hour !!!!! ")
-        //                 this.setState({fullTime: true})
-        //             }
-        //         } 
-        // }
+                    // assign min_Ones &    
+                    if(this.state.min_OnesDigit >= 0 && this.state.min_OnesDigit < 9) {    
+                        this.setState({ min_OnesDigit: this.state.min_OnesDigit + 1 })
+                    } else if (this.state.min_TensDigit < 5) {
+                        this.setState({ min_OnesDigit: 0})
+                        this.setState({ min_TensDigit: this.state.min_TensDigit + 1 })
+                    } else if (this.state.min_TensDigit >= 5) {
+                        console.log(" over an hour !!!!! ")
+                        this.setState({fullTime: true})
+                    }
+                } 
+        }
 
     }
 
@@ -246,70 +210,15 @@ class Timer extends Component {
 
     resetDisplayTimer = () => {
         // *** for single digit display
-        // this.setState({sec_OnesDigit: 0 });
-        // this.setState({sec_TensDigit: 0 });
-        // this.setState({min_OnesDigit: 0 });
-        // this.setState({min_TensDigit: 0 });
+        this.setState({sec_OnesDigit: 0 });
+        this.setState({sec_TensDigit: 0 });
+        this.setState({min_OnesDigit: 0 });
+        this.setState({min_TensDigit: 0 });
 
-        // *** for double digit display
-        this.setState({secDigits: '00'});
-        this.setState({minDigits: '00'});
-        this.setState({secTotal: 0});
-        this.setState({minTotal: 1});
+
 
     }
 
-    incMin = () => {
-        console.log("incMin FIRED")
-
-
-
-        this.setState({ secondsCount: this.state.secondsCount + 60});  
-        // this.setState({ minTotal: this.state.minTotal + 1}); // does not increment first time
-
-
-
-        this.setState((prevState) => {
-            
-            return {minTotal: (prevState.minTotal + 1)};
-        
-        })
-
-
-        
-        
-         console.log(" minTotal updated to >>>>>> ", this.state.minTotal);
-
-        if(this.state.minTotal <= 9) {
-            this.setState({minDigits: '0' + this.state.minTotal.toString()})
-        } else if (this.state.minTotal <= 59) {
-            this.setState({minDigits: this.state.minTotal.toString()}); 
-        } else {
-            console.log(" Hour Reached ")
-        }
-
-        // this.setState({secTotal: this.state.secondsCount - (60 * this.state.minTotal)});
-        // this.assignDigits();      
-
-    }
-
-    decMin = () => {
-        if (this.state.minDigits > 0 && this.state.minDigits <= 59) {
-            this.setState({minDigits: this.state.minDigits - 1})
-        }
-    }
-
-    incSec = () => {
-        if (this.state.secDigits >= 0 && this.state.secDigits < 59) {
-            this.setState({secDigits: this.state.secDigits + 1})
-        }
-    }
-
-    decSec = () => {
-        if (this.state.secDigits > 0 && this.state.secDigits <= 59) {
-            this.setState({secDigits: this.state.secDigits - 1})
-        }
-    }
 
     render() {
         let intType;  
@@ -327,12 +236,11 @@ class Timer extends Component {
             <Timer_div>
 
                 <TimerDisplay 
-                    min_tens = {this.state.minDigits.toString().slice(-2,1)}
-                    min_ones = {this.state.minDigits.toString().slice(-1)}
+                    min_tens = {this.state.min_TensDigit.toString()}
+                    min_ones = {this.state.min_OnesDigit.toString()}
                     colon = ":"
-                    sec_tens = {this.state.secDigits.toString().slice(-2,1)}
-                    sec_ones = {this.state.secDigits.toString().slice(-1)}
-                    incMin_handler = {this.incMin}
+                    sec_tens = {this.state.sec_TensDigit.toString()}
+                    sec_ones = {this.state.sec_OnesDigit.toString()}
                 />
 
                 <button onClick = {this.incMin}> Inc Min </button>
